@@ -2,6 +2,7 @@ from prompts import get_system_prompt
 
 
 def main():
+    print("[main]")
 
     system_prompt = get_system_prompt()
     system_message = {"role": "system", "content": system_prompt}
@@ -11,16 +12,16 @@ def main():
 
     loop_max = 25
 
-    while True:
+    # while True:
 
-        try:
+    #     try:
 
-            loop_count += 1
-            if loop_count > loop_max:
-                break
-        except Exception as e:
-            print("[main.py] e, ", e)
+    #         loop_count += 1
+    #         if loop_count > loop_max:
+    #             break
+    #     except Exception as e:
+    #         print("[main.py] e, ", e)
 
 
-if True:
-    print("main.py")
+if __name__ == "__main__":
+    main()
