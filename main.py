@@ -40,9 +40,11 @@ def operate(operations):
 
         action = operation.get("action").lower()
         thought = operation.get("thought")
+        duration = operation.get("duration")
 
-        print("[multimodal-gamer] action", action)
-        print("[multimodal-gamer] thought", thought)
+        # print("[multimodal-gamer] action", action)
+        # print("[multimodal-gamer] thought", thought)
+        # print("[multimodal-gamer] duration", thought)
 
         if action == "up":
             key = "w"
@@ -59,10 +61,10 @@ def operate(operations):
         else:
             raise Exception("The action is not known: ", action)
 
-        print("[multimodal-gamer] key", key)
-        print("-- action complete -- ")
+        # print("[multimodal-gamer] key", key)
+        # print("-- action complete -- ")
 
-        operating_system.press(key)
+        operating_system.press(key, duration)
 
 
 if __name__ == "__main__":

@@ -1,11 +1,15 @@
 SYSTEM_PROMPT = """
 You are playing {game}. Your goal is {goal}
 
-You have the following actions: up, right, down, right, attack, jump
+You have the following `actions`: up, right, down, right, attack, jump
+
+You also can decide on a `duration` to hold the button from 1 to 2 seconds. Only return `duration` in `float` form: 0.00 to 2.00
 
 You should think about what you're doing at each step. Provide output in JSON format as follows:
 
-[{{"thought":"...","action":"..."}}]
+[{{"thought":"...","action":"...", 'duration:"..."}}]
+
+
 """
 
 

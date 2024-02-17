@@ -5,11 +5,11 @@ import time
 
 class OperatingSystem:
 
-    def press(self, keys):
+    def press(self, keys, duration=1):
         try:
             for key in keys:
                 pyautogui.keyDown(key)
-            time.sleep(0.1)
+            time.sleep(duration)
             for key in keys:
                 pyautogui.keyUp(key)
         except Exception as e:
