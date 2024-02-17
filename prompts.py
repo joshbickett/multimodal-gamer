@@ -1,11 +1,11 @@
 SYSTEM_PROMPT = """
 You are playing {game}. Your goal is {goal}
 
-You have the following controls: `up`, `right`, `left`, `right`, `attack`, `jump`  
+You have the following actions: up, right, down, right, attack, jump
 
 You should think about what you're doing at each step. Provide output in JSON format as follows:
 
-[{{"thought":"...","control":"..."}}]
+[{{"thought":"...","action":"..."}}]
 """
 
 
