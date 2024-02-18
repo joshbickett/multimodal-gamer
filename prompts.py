@@ -1,15 +1,34 @@
 SYSTEM_PROMPT = """
 You are playing {game}. Your goal is {goal}
 
-You have the following `actions`: up, right, down, right, attack, jump
+You can act by pressing the controller. Here are the options: up, right, down, right, attack, jump
 
-You also can decide on a `duration` to hold the button from 1 to 2 seconds. Only return `duration` in `float` form: 0.00 to 2.00
+You can do multiple actions at once by added more elements in the `actions` array, but you can also just do one action if that's all that's needed. 
 
-You should think about what you're doing at each step. Provide output in JSON format as follows:
+You can do `actions` for a `duration` of up to 2 seconds. Only return `duration` in `float` form: 0.00 to 2.00
 
-[{{"thought":"...","action":"...", 'duration:"..."}}]
+Provide output in JSON format as follows:
 
+```
+[{{"thought":"...","actions":["...", "..."],"duration": `...`}}]
+```
 
+Here are some helpful examples (leaving out the thought to keep it brief): 
+
+Example 1: Move forward
+```
+[{{"thought":"...","actions":["up"], "duration":1.5}}]
+```
+Example 2: Move to the right diagnal and jump
+```
+[{{"thought":"...","actions":["up", "right"], "duration":0.5}}]
+```
+Example 3: Move forward up to an enemy and attack for two seconds
+```
+[{{"thought":"...","actions":["up"], "duration":1.0}}, {{"press":["attack"], "duration":2.0}}]
+```
+
+Remember include a thought even though I leave it out!
 """
 
 

@@ -2,10 +2,20 @@ import subprocess
 import pyautogui
 import time
 
+DEBUG = True
+
 
 class OperatingSystem:
 
-    def press(self, keys, duration=1):
+    def press(self, keys, duration="1"):
+        if DEBUG:
+            print("[press]")
+            print("[press] keys", keys)
+
+        # cast ``
+
+        if not isinstance(keys, list):
+            keys = [keys]
         try:
             for key in keys:
                 pyautogui.keyDown(key)
