@@ -26,6 +26,10 @@ def main():
 
     while True:
 
+        if len(messages) > 5:
+            print("[multimodal-gamer] truncating earlier message")
+            messages = [system_message] + messages[-4:]
+
         operations = get_operation(messages)
         print("[multimodal-gamer] operation", operations)
         operate(operations)

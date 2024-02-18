@@ -12,8 +12,6 @@ class OperatingSystem:
             print("[press]")
             print("[press] keys", keys)
 
-        # cast ``
-
         if not isinstance(keys, list):
             keys = [keys]
         try:
