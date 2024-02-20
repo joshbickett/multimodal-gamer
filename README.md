@@ -11,3 +11,26 @@
 - **Compatibility**: Designed for various multimodal models.
 - **Integration**: Currently integrated with **GPT-4**
 - **Future Plans**: Support for additional models.
+
+## Quick install
+
+Create venv
+```
+python3 -m venv env
+```
+Activate it (Mac)
+```
+source env/bin/activate
+```
+Install requirements
+```
+pip install -r requirements.txt
+```
+Add OpenAI Key
+```
+export OPENAI_API_KEY=yourkeyhere
+```
+Run it
+```
+python main.py
+```
