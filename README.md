@@ -4,7 +4,7 @@
   <strong>A framework to enable multi-modal models to play games on a computer.</strong>
 </p>
 <p align="center">
-  Using the same inputs and outputs as a human operator, the model play a game!
+  Using the same inputs and outputs as a human operator, the model plays a game!
 </p>
 
 ## Key Features
