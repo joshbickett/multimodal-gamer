@@ -1,5 +1,5 @@
 from prompts import get_system_prompt
-from api import get_operation
+from api import get_sm64_operation
 import time
 from operating_system import OperatingSystem
 
@@ -30,7 +30,7 @@ def main():
             print("[multimodal-gamer] truncating earlier message")
             messages = [system_message] + messages[-4:]
 
-        operation = get_operation(messages)
+        operation = get_sm64_operation(messages)
         print("[multimodal-gamer] operation", operation)
         operate(operation)
 
