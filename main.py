@@ -1,7 +1,10 @@
-from prompts import get_system_prompt
-from api import get_sm64_operation
 import time
-from operating_system import OperatingSystem
+from gamer.prompts import get_system_prompt
+
+from gamer.api import get_sm64_operation
+
+
+from gamer.operating_system import OperatingSystem
 
 operating_system = OperatingSystem()
 

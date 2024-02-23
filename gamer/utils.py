@@ -1,4 +1,4 @@
-from config import Config
+from gamer.config import Config
 from PIL import Image, ImageDraw
 import os
 from datetime import datetime

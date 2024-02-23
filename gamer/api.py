@@ -1,11 +1,11 @@
 import os
 import base64
 import json
-from operating_system import OperatingSystem
+from gamer.operating_system import OperatingSystem
 from openai import OpenAI
 from dotenv import load_dotenv
-from utils import get_text_element, get_text_coordinates
-from config import Config
+from gamer.utils import get_text_element, get_text_coordinates
+from gamer.config import Config
 import easyocr
 
 load_dotenv()
