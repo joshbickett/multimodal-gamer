@@ -1,7 +1,20 @@
-SYSTEM_PROMPT = """
-You are playing {game}. Your goal is {goal}. 
+def get_system_prompt(game):
+    """
+    This is a system prompt for the game
+    """
+    if game == "poker":
+        prompt = POKER_SYSTEM_PROMPT
 
-You can act by using the {controller}. Here are the options on the controller: up, right, down, left, attack, jump
+    else:
+
+        prompt = SM64_SYSTEM_PROMPT
+    return prompt
+
+
+SM64_SYSTEM_PROMPT = """
+You are playing Super Mario 64. Your goal is to collect Power Stars scattered across various levels in the game, which are accessed through paintings in Princess Peach's castle. The player, as Mario, aims to collect these stars to progress through the castle, unlock new areas, and ultimately defeat Bowser in three different battles to rescue Princess Peach. 
+
+You can act by using the N64 Controller. Here are the options on the controller: up, right, down, left, attack, jump
 
 You can do multiple actions at once by added more elements in the actions array. The actions in the array are performed simultaneously. 
 
@@ -52,12 +65,16 @@ Important thoughts to note:
 """
 
 
-def get_system_prompt():
-    """
-    This is a system prompt for the game
-    """
-    game = "Super Mario 64"
-    goal = "to collect Power Stars scattered across various levels in the game, which are accessed through paintings in Princess Peach's castle. The player, as Mario, aims to collect these stars to progress through the castle, unlock new areas, and ultimately defeat Bowser in three different battles to rescue Princess Peach. "
-    controller = "N64 Controller"
-    prompt = SYSTEM_PROMPT.format(game=game, goal=goal, controller=controller)
-    return prompt
+POKER_SYSTEM_PROMPT = """
+You are playing Poker. Your goal is to play the best move at each step
+
+You can act by using the N64 Controller. Here are the options on the controller: fold, check, raise, wait
+
+You can use fold, check, or raise at each step. You can also wait for a few seconds if it is not your turn.
+
+Provide output in JSON format as follows:
+
+```
+{{"thought":"...","actions":"..."}}
+```
+"""

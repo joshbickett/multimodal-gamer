@@ -14,10 +14,10 @@ operating_system = OperatingSystem()
 debug = True
 
 
-def main():
+def main(game):
     print("[multimodal-gamer]")
 
-    system_prompt = get_system_prompt()
+    system_prompt = get_system_prompt(game)
     system_message = {"role": "system", "content": system_prompt}
     messages = [system_message]
     # wait for two seconds
@@ -86,4 +86,15 @@ def operate(operation):
 
 
 if __name__ == "__main__":
-    main()
+    import argparse
+
+    parser = argparse.ArgumentParser(description="Run the game with specified options.")
+    parser.add_argument(
+        "-game",
+        type=str,
+        default="poker",
+        help='The name of the game to run. Default is "poker".',
+    )
+    args = parser.parse_args()
+
+    main(game=args.game)
