@@ -2,13 +2,16 @@ import time
 from gamer.prompts import get_system_prompt
 
 from gamer.api import get_sm64_operation
+from gamer.adapter import Adapter
+
+adapters = Adapter()
 
 
 from gamer.operating_system import OperatingSystem
 
 operating_system = OperatingSystem()
 
-debug = False
+debug = True
 
 
 def main():
@@ -43,6 +46,8 @@ def main():
 
 
 def operate(operation):
+    if debug:
+        print("[multimodal-gamer] operate")
 
     actions = operation.get("actions")
     thought = operation.get("thought")
@@ -52,29 +57,32 @@ def operate(operation):
     # print("[multimodal-gamer] thought", thought)
     # print("[multimodal-gamer] duration", thought)
 
-    keys = []
-    for action in actions:
-        if action == "up":
-            key = "w"
-        elif action == "right":
-            key = "d"
-        elif action == "down":
-            key = "s"
-        elif action == "left":
-            key = "a"
-        elif action == "attack":
-            key = "j"
-        elif action == "jump":
-            key = "k"
-        else:
-            raise Exception("The action is not known: ", action)
+    operations = adapters.sm64(actions)
 
-        keys.append(key)
+    for operation in operations:
+        if debug:
+            print("[multimodal-gamer] operation", operation)
+        operate_type = operation.get("operation")
+        if operate_type == "press":
+            if debug:
+                print("[multimodal-gamer] press operation!")
+            key = operation.get("key")
+            operating_system.press(key)
+        elif operate_type == "write":
+            if debug:
+                print("[multimodal-gamer] write operation!")
+            content = operation.get("content")
+            operate_detail = content
+            # operating_system.write(content)
+        elif operate_type == "click":
+            if debug:
+                print("[multimodal-gamer] click operation!")
+            x = operation.get("x")
+            y = operation.get("y")
+            click_detail = {"x": x, "y": y}
+            operate_detail = click_detail
 
-    # print("[multimodal-gamer] key", key)
-    # print("-- action complete -- ")
-
-    operating_system.press(keys, duration)
+            operating_system.mouse(click_detail)
 
 
 if __name__ == "__main__":

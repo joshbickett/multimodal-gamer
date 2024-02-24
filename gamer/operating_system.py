@@ -8,7 +8,7 @@ DEBUG = True
 
 class OperatingSystem:
 
-    def press(self, keys, duration="1"):
+    def press(self, keys, duration=1.0):
         if DEBUG:
             print("[press]")
             print("[press] keys", keys)
