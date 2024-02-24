@@ -57,7 +57,7 @@ def operate(operation):
     # print("[multimodal-gamer] thought", thought)
     # print("[multimodal-gamer] duration", thought)
 
-    operations = adapters.sm64(actions)
+    operations = adapters.sm64(actions, duration)
 
     for operation in operations:
         if debug:
