@@ -2,8 +2,12 @@ import subprocess
 import pyautogui
 import time
 import math
+from gamer.config import Config
 
 DEBUG = True
+
+# Load configuration
+config = Config()
 
 
 class OperatingSystem:
@@ -60,7 +64,13 @@ class OperatingSystem:
                 y = y_pixel + math.sin(angle) * circle_radius
                 pyautogui.moveTo(x, y, duration=0.1)
 
+            if config.verbose:
+                print("[click_at_percentage] clicking at:", x_pixel, y_pixel)
+
             pyautogui.click(x_pixel, y_pixel)
+            pyautogui.moveTo(
+                0, 0, duration=0.05
+            )  # move mouse out of way for next screenshot
         except Exception as e:
             print("[OperatingSystem][click_at_percentage] error:", e)
 

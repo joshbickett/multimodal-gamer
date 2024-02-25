@@ -124,54 +124,65 @@ def get_poker_operation(messages):
 
 
 def process_ocr(messages, content, screenshot_filename):
+    if config.verbose:
+        print(
+            "[process_ocr] content",
+            content,
+        )
 
     content_str = content
 
     content = json.loads(content)
 
-    processed_content = []
-    for operation in content:
-        if operation.get("operation") == "click":
-            text_to_click = operation.get("text")
+    processed_content = None
 
-            print(
-                "[call_gpt_4_vision_preview_ocr][click] text_to_click",
-                text_to_click,
-            )
-            # Initialize EasyOCR Reader
-            reader = easyocr.Reader(["en"])
+    if config.verbose:
+        print(
+            "[process_ocr] operation",
+            content,
+        )
 
-            # Read the screenshot
-            result = reader.readtext(screenshot_filename)
+    text_to_click = content.get("action")
 
-            text_element_index = get_text_element(
-                result, text_to_click, screenshot_filename
-            )
-            coordinates = get_text_coordinates(
-                result, text_element_index, screenshot_filename
-            )
+    if config.verbose:
+        print(
+            "[process_ocr] text_to_click",
+            text_to_click,
+        )
+    # upcase the first letter of the text_to_click
+    text_to_click = text_to_click[0].upper() + text_to_click[1:]
+    # Initialize EasyOCR Reader
+    reader = easyocr.Reader(["en"])
 
-            # add `coordinates`` to `content`
-            operation["x"] = coordinates["x"]
-            operation["y"] = coordinates["y"]
+    # Read the screenshot
+    result = reader.readtext(screenshot_filename)
+    # if config.verbose:
+    #     print(
+    #         "[process_ocr] result",
+    #         result,
+    #     )
 
-            if config.verbose:
-                print(
-                    "[call_gpt_4_vision_preview_ocr][click] text_element_index",
-                    text_element_index,
-                )
-                print(
-                    "[call_gpt_4_vision_preview_ocr][click] coordinates",
-                    coordinates,
-                )
-                print(
-                    "[call_gpt_4_vision_preview_ocr][click] final operation",
-                    operation,
-                )
-            processed_content.append(operation)
+    text_element_index = get_text_element(result, text_to_click, screenshot_filename)
+    coordinates = get_text_coordinates(result, text_element_index, screenshot_filename)
 
-        else:
-            raise ValueError("Invalid operation")
+    # add `coordinates`` to `content`
+    content["x"] = coordinates["x"]
+    content["y"] = coordinates["y"]
+
+    if config.verbose:
+        print(
+            "[process_ocr] text_element_index",
+            text_element_index,
+        )
+        print(
+            "[process_ocr] coordinates",
+            coordinates,
+        )
+        print(
+            "[process_ocr] final content",
+            content,
+        )
+    processed_content = content
 
     # wait to append the assistant message so that if the `processed_content` step fails we don't append a message and mess up message history
     assistant_message = {"role": "assistant", "content": content_str}

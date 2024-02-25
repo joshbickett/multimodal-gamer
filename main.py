@@ -1,7 +1,7 @@
 import time
 from gamer.prompts import get_system_prompt
 
-from gamer.api import get_sm64_operation
+from gamer.api import get_sm64_operation, get_poker_operation
 from gamer.adapter import Adapter
 
 adapters = Adapter()
@@ -36,38 +36,42 @@ def main(game):
             print("[multimodal-gamer] truncating earlier message")
             messages = [system_message] + messages[-4:]
 
-        operation = get_sm64_operation(messages)
+        if game == "poker":
+            operation = get_poker_operation(messages)
+        else:
+            operation = get_sm64_operation(messages)
         print("[multimodal-gamer] operation", operation)
-        operate(operation)
+        operate(operation, game)
 
         loop_count += 1
         if loop_count > loop_max:
             break
 
 
-def operate(operation):
+def operate(preprocessed_operation, game):
     if debug:
         print("[multimodal-gamer] operate")
-
-    actions = operation.get("actions")
-    thought = operation.get("thought")
-    duration = operation.get("duration")
 
     # print("[multimodal-gamer] action", action)
     # print("[multimodal-gamer] thought", thought)
     # print("[multimodal-gamer] duration", thought)
-
-    operations = adapters.sm64(actions, duration)
+    if game == "poker":
+        operations = adapters.poker(preprocessed_operation)
+    else:
+        operations = adapters.sm64(preprocessed_operation)
+    if debug:
+        print("[multimodal-gamer] operations", operations)
 
     for operation in operations:
-        if debug:
-            print("[multimodal-gamer] operation", operation)
+        # if debug:
+        #     print("[multimodal-gamer] operation", operation)
         operate_type = operation.get("operation")
         if operate_type == "press":
             if debug:
                 print("[multimodal-gamer] press operation!")
             key = operation.get("key")
-            operating_system.press(key)
+            duration = operation.get("duration", 0.5)
+            operating_system.press(key, duration)
         elif operate_type == "write":
             if debug:
                 print("[multimodal-gamer] write operation!")
@@ -80,9 +84,11 @@ def operate(operation):
             x = operation.get("x")
             y = operation.get("y")
             click_detail = {"x": x, "y": y}
-            operate_detail = click_detail
 
             operating_system.mouse(click_detail)
+        else:
+            print("[multimodal-gamer] operation not mapped, no problem!")
+            return
 
 
 if __name__ == "__main__":

@@ -68,13 +68,13 @@ Important thoughts to note:
 POKER_SYSTEM_PROMPT = """
 You are playing Poker. Your goal is to play the best move at each step
 
-You can act by using the N64 Controller. Here are the options on the controller: fold, check, raise, wait
+You can act by using the N64 Controller. Here are the options on the controller: Fold, Check, Raise, Wait
 
 You can use fold, check, or raise at each step. You can also wait for a few seconds if it is not your turn.
 
 Provide output in JSON format as follows:
 
 ```
-{{"thought":"...","actions":"..."}}
+{{"thought":"...","action":"..."}}
 ```
 """

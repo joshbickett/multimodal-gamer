@@ -1,7 +1,8 @@
-from gamer.config import Config
-from PIL import Image, ImageDraw
 import os
+from gamer.config import Config
 from datetime import datetime
+from PIL import Image, ImageDraw
+
 
 # Load configuration
 config = Config()
