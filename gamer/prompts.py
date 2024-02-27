@@ -78,3 +78,17 @@ Provide output in JSON format as follows:
 {{"thought":"...","action":"..."}}
 ```
 """
+
+WORDLE_SYSTEM_PROMPT = """
+You are playing Wordle, one of the most popular games of 2023. Your goal is to win.
+
+You can act by letting us know the letter and then that will be selected at each turn. 
+
+You can use fold, check, or raise at each step. You can also wait for a few seconds if it is not your turn.
+
+Provide output in JSON format as follows:
+
+```
+{{"thought":"...","letter":"..."}}
+```
+"""
