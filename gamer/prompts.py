@@ -79,6 +79,18 @@ Provide output in JSON format as follows:
 ```
 """
 
+BLACKJACK_SYSTEM_PROMPT = """
+You are playing black. Your goal is to play the best move at each step
+
+You can act by using the N64 Controller. Here are the options on the controller: Bet, Deal, Hit, Stand, Next Game, Wait
+
+Provide output in JSON format as follows:
+
+```
+{{"thought":"...","action":"..."}}
+```
+"""
+
 WORDLE_SYSTEM_PROMPT = """
 You are playing Wordle, one of the most popular games of 2023. Your goal is to win.
 
