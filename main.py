@@ -38,6 +38,8 @@ def main(game):
 
         if game == "poker":
             operation = get_poker_operation(messages)
+        elif game == "sm64":
+            operation = get_poker_operation(messages)
         else:
             operation = get_sm64_operation(messages)
         print("[multimodal-gamer] operation", operation)

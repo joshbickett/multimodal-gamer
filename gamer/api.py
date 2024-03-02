@@ -151,6 +151,7 @@ def process_ocr(messages, content, screenshot_filename):
         )
     # upcase the first letter of the text_to_click
     text_to_click = text_to_click[0].upper() + text_to_click[1:]
+
     # Initialize EasyOCR Reader
     reader = easyocr.Reader(["en"])
 
