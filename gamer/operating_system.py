@@ -68,9 +68,8 @@ class OperatingSystem:
                 print("[click_at_percentage] clicking at:", x_pixel, y_pixel)
 
             pyautogui.click(x_pixel, y_pixel)
-            pyautogui.moveTo(
-                0, 0, duration=0.05
-            )  # move mouse out of way for next screenshot
+            pyautogui.moveTo(screen_width / 2, screen_height / 2, duration=0.1)
+
         except Exception as e:
             print("[OperatingSystem][click_at_percentage] error:", e)
 
