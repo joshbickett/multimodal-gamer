@@ -34,32 +34,35 @@ def get_text_element(result, search_text, image_path):
         image = Image.open(image_path)
         draw = ImageDraw.Draw(image)
 
-    found_index = None
+    lowest_index = None
+    max_y_value = -1
     for index, element in enumerate(result):
         text = element[1]
-        box = element[0]
+        box = element[
+            0
+        ]  # Box is a list of tuples [(x1, y1), (x2, y2), (x3, y3), (x4, y4)]
 
         if config.verbose:
-            # Draw bounding box in blue
             draw.polygon([tuple(point) for point in box], outline="blue")
 
         if search_text in text:
-            found_index = index
+            # Calculate the average Y value of the bottom points of the bounding box
+            bottom_y_average = (box[2][1] + box[3][1]) / 2
+            if bottom_y_average > max_y_value:
+                lowest_index = index
+                max_y_value = bottom_y_average
             if config.verbose:
                 print("[get_text_element][loop] found search_text, index:", index)
 
-    if found_index is not None:
+    if lowest_index is not None:
         if config.verbose:
-            # Draw bounding box of the found text in red
-            box = result[found_index][0]
+            box = result[lowest_index][0]
             draw.polygon([tuple(point) for point in box], outline="red")
-            # Save the image with bounding boxes
             datetime_str = datetime.now().strftime("%Y%m%d_%H%M%S")
             ocr_image_path = os.path.join(ocr_dir, f"ocr_image_{datetime_str}.png")
             image.save(ocr_image_path)
             print("[get_text_element] OCR image saved at:", ocr_image_path)
-
-        return found_index
+        return lowest_index
 
     raise Exception("The text element was not found in the image")
 

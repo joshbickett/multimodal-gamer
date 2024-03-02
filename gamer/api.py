@@ -172,11 +172,11 @@ def process_ocr(messages, content, content_str, screenshot_filename):
     # Read the screenshot
     result = reader.readtext(screenshot_filename)
     # if config.verbose:
-    #     print(
-    #         "[process_ocr] result",
-    #         result,
-    #     )
+    #     print("\n\n\n[process_ocr] results", result)
+    #     print("\n\n\n")
+
     try:
+
         text_element_index = get_text_element(
             result, text_to_click, screenshot_filename
         )
