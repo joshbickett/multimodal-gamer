@@ -88,8 +88,10 @@ Continue: After someone wins the hand, choose to continue to the next game.
 Provide output in JSON format as follows:
 
 ```
-{{"thought":"...","action":"..."}}
+{{"thought":"...","action":"...", "reason":"..."}}
 ```
+
+It is important you think about your next action and come up with a good reason to take the action. Ensure that you share your thoughts and reasons for your actions as well output. 
 
 Cheers!
 """
