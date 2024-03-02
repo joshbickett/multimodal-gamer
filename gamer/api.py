@@ -118,21 +118,27 @@ def get_poker_operation(messages):
 
     content = clean_json(content)
 
-    processed_content = process_ocr(messages, content, screenshot_filename)
+    content_str = content
+
+    content_json = json.loads(content)
+    action = content_json.get("action")
+    if action == "Wait":
+        print("waiting...")
+        return
+
+    processed_content = process_ocr(
+        messages, content_json, content_str, screenshot_filename
+    )
 
     return processed_content
 
 
-def process_ocr(messages, content, screenshot_filename):
+def process_ocr(messages, content, content_str, screenshot_filename):
     if config.verbose:
         print(
             "[process_ocr] content",
             content,
         )
-
-    content_str = content
-
-    content = json.loads(content)
 
     processed_content = None
 
