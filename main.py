@@ -37,7 +37,9 @@ def main(game):
             messages = [system_message] + messages[-4:]
 
         if game == "poker":
-            operation = get_poker_operation(messages)
+            operation = get_poker_operation(
+                messages
+            )  # at https://www.247freepoker.com/
         elif game == "sm64":
             operation = get_poker_operation(messages)
         else:

@@ -123,11 +123,16 @@ def get_poker_operation(messages):
     content_json = json.loads(content)
     action = content_json.get("action")
     print("action", action)
-    if action:
-        action = action.lower()
-        if action == "Wait" or action == "wait":
 
-            return content_json
+    action = action.lower()
+    if action == "Wait" or action == "wait":
+
+        return content_json
+    elif action == "Continue" or action == "continue":
+        print("action is continue")
+        content_json["x"] = "0.50"
+        content_json["y"] = "0.50"
+        return content_json
 
     processed_content = process_ocr(
         messages, content_json, content_str, screenshot_filename
