@@ -22,7 +22,6 @@ def main(game):
     messages = [system_message]
     # wait for two seconds
 
-    time.sleep(2)
     if debug:
         print("[multimodal-gamer] starting")
 
@@ -31,6 +30,7 @@ def main(game):
     loop_max = 20
 
     while True:
+        time.sleep(2)
 
         if len(messages) > 5:
             print("[multimodal-gamer] truncating earlier message")
@@ -44,7 +44,7 @@ def main(game):
             operation = get_sm64_operation(messages)
         print("[multimodal-gamer] operation", operation)
 
-        if operation.get("action") == "wait":
+        if operation.get("action") == "wait" or operation.get("action") == "Wait":
             print("action is wait, break")
             continue
 

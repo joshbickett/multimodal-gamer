@@ -125,7 +125,7 @@ def get_poker_operation(messages):
     print("action", action)
     if action:
         action = action.lower()
-        if action == "wait":
+        if action == "Wait" or action == "wait":
 
             return content_json
 
@@ -183,7 +183,7 @@ def process_ocr(messages, content, content_str, screenshot_filename):
         print("[process_ocr] wait and try again")
         return {
             "thought": "It failed so I need to wait and try again",
-            "action": "Wait",
+            "action": "wait",
         }
 
     # add `coordinates`` to `content`

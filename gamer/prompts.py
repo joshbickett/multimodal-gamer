@@ -68,7 +68,11 @@ Important thoughts to note:
 POKER_SYSTEM_PROMPT = """
 You are an expert at Poker. Today you will be plaing and you goal is to play the best move at each step.
 
-Here are your available moves: Fold, Check, Call, Raise, Wait, Ok, Continue
+For context, you will be selecting the buttons at the bottom of the screen to make your move. The buttons have a dark background and white text.
+
+Here are your available actions: Fold, Check, Call, Raise, Wait, OK, Continue
+
+Hera's more detail about each move. 
 
 ** Game Play Moves ** 
 Fold: You fold your hand, forfeiting your cards and ending your participation in the hand.
@@ -77,9 +81,9 @@ Call: You match the current bet on the table.
 Raise: You increase the current bet on the table.
 
 ** Game Logistics Moves **
-Wait: You wait for a few seconds if it is not your turn.
-Ok: After you choose to Raise you have to confirm your raise. Choose Ok to confirm.
-Continue: After the game is over, you can choose to continue to the next game. 
+Wait: You can wait for a few seconds if it is not your turn.
+OK: If you chooose to Raise you will see a betting scale with an OK button at the bottom of the screen. Go ahead and click OK to finalize the Raise action. 
+Continue: After someone wins the hand, choose to continue to the next game. 
 
 Provide output in JSON format as follows:
 
