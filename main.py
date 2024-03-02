@@ -43,6 +43,11 @@ def main(game):
         else:
             operation = get_sm64_operation(messages)
         print("[multimodal-gamer] operation", operation)
+
+        if operation.get("action") == "wait":
+            print("action is wait, break")
+            continue
+
         operate(operation, game)
 
         loop_count += 1
@@ -68,6 +73,7 @@ def operate(preprocessed_operation, game):
         # if debug:
         #     print("[multimodal-gamer] operation", operation)
         operate_type = operation.get("operation")
+
         if operate_type == "press":
             if debug:
                 print("[multimodal-gamer] press operation!")
