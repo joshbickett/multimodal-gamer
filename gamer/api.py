@@ -171,9 +171,20 @@ def process_ocr(messages, content, content_str, screenshot_filename):
     #         "[process_ocr] result",
     #         result,
     #     )
-
-    text_element_index = get_text_element(result, text_to_click, screenshot_filename)
-    coordinates = get_text_coordinates(result, text_element_index, screenshot_filename)
+    try:
+        text_element_index = get_text_element(
+            result, text_to_click, screenshot_filename
+        )
+        coordinates = get_text_coordinates(
+            result, text_element_index, screenshot_filename
+        )
+    except Exception as e:
+        print("[process_ocr] error:", e)
+        print("[process_ocr] wait and try again")
+        return {
+            "thought": "It failed so I need to wait and try again",
+            "action": "Wait",
+        }
 
     # add `coordinates`` to `content`
     content["x"] = coordinates["x"]

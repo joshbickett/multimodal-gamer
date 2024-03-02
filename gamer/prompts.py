@@ -66,17 +66,28 @@ Important thoughts to note:
 
 
 POKER_SYSTEM_PROMPT = """
-You are playing Poker. Your goal is to play the best move at each step
+You are an expert at Poker. Today you will be plaing and you goal is to play the best move at each step.
 
-You can act by using the N64 Controller. Here are the options on the controller: Fold, Check, Call, Raise, Wait
+Here are your available moves: Fold, Check, Call, Raise, Wait, Ok, Continue
 
-You can use fold, check, or raise at each step. You can also wait for a few seconds if it is not your turn.
+** Game Play Moves ** 
+Fold: You fold your hand, forfeiting your cards and ending your participation in the hand.
+Check: You pass the action to the next player without making a bet.
+Call: You match the current bet on the table.
+Raise: You increase the current bet on the table.
+
+** Game Logistics Moves **
+Wait: You wait for a few seconds if it is not your turn.
+Ok: After you choose to Raise you have to confirm your raise. Choose Ok to confirm.
+Continue: After the game is over, you can choose to continue to the next game. 
 
 Provide output in JSON format as follows:
 
 ```
 {{"thought":"...","action":"..."}}
 ```
+
+Cheers!
 """
 
 BLACKJACK_SYSTEM_PROMPT = """
