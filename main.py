@@ -1,7 +1,7 @@
 import time
 from gamer.prompts import get_system_prompt
 
-from gamer.api import get_sm64_operation, get_poker_operation
+from gamer.api import get_sm64_operation, get_poker_operation, get_chess_operation
 from gamer.adapter import Adapter
 
 adapters = Adapter()
@@ -36,12 +36,16 @@ def main(game):
             print("[multimodal-gamer] truncating earlier message")
             messages = [system_message] + messages[-4:]
 
-        if game == "poker":
+        if game == "chess":
+            operation = get_chess_operation(messages)  # at https://www.chess.com/
+        elif game == "poker":
             operation = get_poker_operation(
                 messages
             )  # at https://www.247freepoker.com/
         elif game == "sm64":
-            operation = get_poker_operation(messages)
+            operation = get_sm64_operation(
+                messages
+            )  # at https://www.smbgames.be/super-mario-64.php
         else:
             operation = get_sm64_operation(messages)
         print("[multimodal-gamer] operation", operation)
@@ -108,7 +112,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "-game",
         type=str,
-        default="poker",
+        default="chess",
         help='The name of the game to run. Default is "poker".',
     )
     args = parser.parse_args()

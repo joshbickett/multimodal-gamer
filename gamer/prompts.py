@@ -2,13 +2,18 @@ def get_system_prompt(game):
     """
     This is a system prompt for the game
     """
-    if game == "poker":
+    if game == "chess":
+        prompt = CHESS_SYSTEM_PROMPT
+    elif game == "poker":
         prompt = POKER_SYSTEM_PROMPT
-
     else:
-
         prompt = SM64_SYSTEM_PROMPT
     return prompt
+
+
+CHESS_SYSTEM_PROMPT = """
+
+"""
 
 
 SM64_SYSTEM_PROMPT = """
@@ -95,6 +100,7 @@ IMPORTANT: Think about your next action and come up with a good reason to take t
 
 Cheers, have fun and win big!
 """
+
 
 BLACKJACK_SYSTEM_PROMPT = """
 You are playing black. Your goal is to play the best move at each step
