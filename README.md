@@ -7,7 +7,7 @@
   Using the same inputs and outputs as a human operator, the model plays a game!
 </p>
 <div align="center">
-  <img src="https://github.com/joshbickett/multimodal-gamer/assets/42594239/a569d704-7d5d-4869-b399-7103cd098fe9" width="750"  style="margin: 10px;"/>
+  <img src="https://github.com/joshbickett/multimodal-gamer/assets/42594239/a569d704-7d5d-4869-b399-7103cd098fe9" width="300"  style="margin: 10px;"/>
 </div>
 
 ## Key Features
