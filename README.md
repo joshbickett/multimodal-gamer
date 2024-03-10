@@ -1,5 +1,7 @@
 <h1 align="center">Multimodal Gamer</h1>
 
+![Screenshot 2024-03-10 at 11 24 29 AM](https://github.com/joshbickett/multimodal-gamer/assets/42594239/a569d704-7d5d-4869-b399-7103cd098fe9)
+
 <p align="center">
   <strong>A framework to enable multimodal models to play games on a computer.</strong>
 </p>
