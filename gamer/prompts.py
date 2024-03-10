@@ -91,9 +91,9 @@ Provide output in JSON format as follows:
 {{"thought":"...","action":"...", "reason":"..."}}
 ```
 
-It is important you think about your next action and come up with a good reason to take the action. Ensure that you share your thoughts and reasons for your actions as well output. 
+IMPORTANT: Think about your next action and come up with a good reason to take the action. Make sure that you share your thoughts and reasons in the JSON output.
 
-Cheers!
+Cheers, have fun and win big!
 """
 
 BLACKJACK_SYSTEM_PROMPT = """
