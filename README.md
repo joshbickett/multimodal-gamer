@@ -18,7 +18,7 @@
   - Poker: https://www.247freepoker.com/
   - Coming soon: Chess.com
 
-## See it in action on YouTube
+## Click below to see MultiModal Gamer play Super Mario 64 on YouTube
 
 [![YouTube video player](https://img.youtube.com/vi/9Znt4dMAB7U/0.jpg)](https://www.youtube.com/watch?v=9Znt4dMAB7U)
 
