@@ -11,9 +11,12 @@
 </div>
 
 ## Key Features
-- **Compatibility**: Designed for various multimodal models.
+- **Compatibility**: Designed for various multimodal models and games
 - **Integration**: Currently integrated with **GPT-4**
-- **Future Plans**: Support for additional models.
+- **Supported Games**:
+  - Super Mario 64: https://www.smbgames.be/super-mario-64.php
+  - Poker: https://www.247freepoker.com/
+  - Coming soon: Chess.com
 
 ## Quick install
 
