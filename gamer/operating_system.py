@@ -12,12 +12,24 @@ config = Config()
 
 class OperatingSystem:
 
-    def press(self, keys, duration=1.0):
+    def write(self, content):
+        try:
+            if DEBUG:
+                print("[write]")
+                print("[write] keys", content)
+            for char in content:
+                pyautogui.write(char)
+        except Exception as e:
+            print("[OperatingSystem][write] error:", e)
+
+    def press(self, keys, duration=0.5):
         if DEBUG:
             print("[press]")
             print("[press] keys", keys)
 
         if not isinstance(keys, list):
+            if DEBUG:
+                print("[OperatingSystem][press] keys is not a list")
             keys = [keys]
         try:
             for key in keys:

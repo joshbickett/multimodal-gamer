@@ -31,7 +31,7 @@ Here's more detail about the types of moves you can make:
 - En passant: Capture a pawn that has moved two squares forward from its starting position and is adjacent to your pawn.
 - Promotion: Move a pawn to the last rank, replacing it with a queen, rook, bishop, or knight, indicated by adding the piece letter to the move (e.g., e7e8q for a pawn promoting to a queen).
 
-Your outputs will be in JSON format with your thoughts, the move in UCI format, and the reason for the move, as shown below:
+Your outputs will be in JSON format with your thoughts, the move in UCI format, and the reason for the move, as shown below. It is required that the `action` is the full UCI format with all four characters (e.g., e2e4, e7e8q, e1g1, e7e5).
 
 ```
 {{"thought":"...","action":"...", "reason":"..."}}

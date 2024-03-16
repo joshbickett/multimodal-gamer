@@ -45,3 +45,16 @@ class Adapter:
         }
 
         return [operation]
+
+    def chess(self, operation):
+        print("[Adapter][chess] operation:", operation)
+        action = operation.get("action")
+
+        operation = {"operation": "write", "content": action}
+        operations = [operation]
+        completion_operation = {"operation": "press", "key": "enter"}
+        operations.append(completion_operation)
+
+        print("[Adapter][chess] operations:", operations)
+
+        return operations

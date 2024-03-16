@@ -191,7 +191,7 @@ def get_chess_operation(messages):
     action = content_json.get("action")
     print("action", action)
 
-    return action
+    return content_json
 
 
 def process_ocr(messages, content, content_str, screenshot_filename):

@@ -68,8 +68,11 @@ def operate(preprocessed_operation, game):
     # print("[multimodal-gamer] action", action)
     # print("[multimodal-gamer] thought", thought)
     # print("[multimodal-gamer] duration", thought)
+
     if game == "poker":
         operations = adapters.poker(preprocessed_operation)
+    elif game == "chess":
+        operations = adapters.chess(preprocessed_operation)
     else:
         operations = adapters.sm64(preprocessed_operation)
     if debug:
@@ -90,8 +93,7 @@ def operate(preprocessed_operation, game):
             if debug:
                 print("[multimodal-gamer] write operation!")
             content = operation.get("content")
-            operate_detail = content
-            # operating_system.write(content)
+            operating_system.write(content)
         elif operate_type == "click":
             if debug:
                 print("[multimodal-gamer] click operation!")
