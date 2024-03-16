@@ -41,6 +41,8 @@ class OperatingSystem:
             print("[OperatingSystem][press] error:", e)
 
     def capture_screen(self, file_path):
+        if config.verbose:
+            print("[OperatingSystem] capture_screen")
         subprocess.run(["screencapture", "-C", file_path])
 
     def mouse(self, click_detail):
