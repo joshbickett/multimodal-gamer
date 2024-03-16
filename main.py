@@ -72,6 +72,7 @@ def operate(preprocessed_operation, game):
     if game == "poker":
         operations = adapters.poker(preprocessed_operation)
     elif game == "chess":
+
         operations = adapters.chess(preprocessed_operation)
     else:
         operations = adapters.sm64(preprocessed_operation)
@@ -86,9 +87,14 @@ def operate(preprocessed_operation, game):
         if operate_type == "press":
             if debug:
                 print("[multimodal-gamer] press operation!")
-            key = operation.get("key")
-            duration = operation.get("duration", 0.5)
-            operating_system.press(key, duration)
+            keys = operation.get("keys")
+            if not keys:
+                keys = operation.get("key")
+
+            duration = operation.get("duration")
+            if not duration:
+                duration = 1
+            operating_system.press(keys, duration)
         elif operate_type == "write":
             if debug:
                 print("[multimodal-gamer] write operation!")

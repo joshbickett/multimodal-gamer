@@ -22,10 +22,11 @@ class OperatingSystem:
         except Exception as e:
             print("[OperatingSystem][write] error:", e)
 
-    def press(self, keys, duration=0.5):
+    def press(self, keys, duration=0.1):
         if DEBUG:
             print("[press]")
             print("[press] keys", keys)
+            print("[press] duration", duration)
 
         if not isinstance(keys, list):
             if DEBUG:
