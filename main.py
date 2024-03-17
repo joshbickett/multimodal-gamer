@@ -14,7 +14,7 @@ operating_system = OperatingSystem()
 debug = True
 
 
-def main(game):
+def main(game, model):
     print("[multimodal-gamer]")
 
     messages = []
@@ -35,17 +35,19 @@ def main(game):
             messages = messages[-4:]
 
         if game == "chess":
-            operation = get_chess_operation(messages)  # at https://www.chess.com/
+            operation = get_chess_operation(
+                model, messages
+            )  # at https://www.chess.com/
         elif game == "poker":
             operation = get_poker_operation(
-                messages
+                model, messages
             )  # at https://www.247freepoker.com/
         elif game == "sm64":
             operation = get_sm64_operation(
-                messages
+                model, messages
             )  # at https://www.smbgames.be/super-mario-64.php
         else:
-            operation = get_sm64_operation(messages)
+            Exception("game not supported")
         print("[multimodal-gamer] operation", operation)
 
         if operation.get("action") == "wait" or operation.get("action") == "Wait":
@@ -116,11 +118,21 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(description="Run the game with specified options.")
     parser.add_argument(
-        "-game",
+        "-m",
+        "--model",
+        help="Specify the model to use",
+        required=False,
+        default="gpt-4",
+    )
+    parser.add_argument(
+        "--game",
         type=str,
         default="poker",
         help='The name of the game to run. Default is "poker".',
     )
-    args = parser.parse_args()
 
-    main(game=args.game)
+    try:
+        args = parser.parse_args()
+        main(game=args.game, model=args.model)
+    except KeyboardInterrupt:
+        print("Exiting...")

@@ -29,8 +29,8 @@ anthropic_client = Anthropic(
 config = Config()
 
 
-def get_sm64_operation(messages):
-    content, screenshot_filename = call_api("mario", "openai", messages)
+def get_sm64_operation(model, messages):
+    content, screenshot_filename = call_api("mario", model, messages)
     if config.debug:
         print("[multimodal-gamer] preprocessed content", content)
 
@@ -45,8 +45,8 @@ def get_sm64_operation(messages):
     return content
 
 
-def get_poker_operation(messages):
-    content, screenshot_filename = call_api("poker", "openai", messages)
+def get_poker_operation(model, messages):
+    content, screenshot_filename = call_api("poker", model, messages)
 
     content_str = content
 
@@ -71,9 +71,9 @@ def get_poker_operation(messages):
     return processed_content
 
 
-def get_chess_operation(messages):
+def get_chess_operation(model, messages):
 
-    content, screenshot_filename = call_api("chess", "openai", messages)
+    content, screenshot_filename = call_api("chess", model, messages)
     assistant_message = {"role": "assistant", "content": content}
 
     content = json.loads(content)
@@ -85,7 +85,7 @@ def get_chess_operation(messages):
 # build this out for claude and gpt-4-vision-preview
 def call_api(
     game,
-    provider,
+    model,
     messages,
 ):
     if config.verbose:
@@ -112,7 +112,7 @@ def call_api(
     user_prompt = "See the screenshot of the game provide your next action. Only respond with the next action in valid json."
 
     system_prompt = get_system_prompt(game)
-    if provider == "openai":
+    if model == "gpt-4":
 
         system_message = {"role": "system", "content": system_prompt}
         # append the system message to the first index of `messages`
@@ -148,7 +148,7 @@ def call_api(
         print("type(content", type(content))
 
         return content, screenshot_filename
-    elif provider == "anthropic":
+    elif model == "claude":
         vision_message = {
             "role": "user",
             "content": [
