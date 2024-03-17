@@ -48,6 +48,6 @@ https://github.com/joshbickett/multimodal-gamer/assets/42594239/2d557fc9-3d93-4b
 To run a specific game, use the `-game` flag followed by the name of the game. For example, to play chess:
 
 ```bash
-python main.py -game chess
+python main.py --game chess
 ```
 
