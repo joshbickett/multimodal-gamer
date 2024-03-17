@@ -127,7 +127,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--game",
         type=str,
-        default="poker",
+        default="chess",
         help='The name of the game to run. Default is "poker".',
     )
 
