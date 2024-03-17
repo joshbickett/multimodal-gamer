@@ -16,7 +16,7 @@
 - **Supported Games**:
   - Super Mario 64: https://www.smbgames.be/super-mario-64.php
   - Poker: https://www.247freepoker.com/
-  - Coming soon: Chess.com
+  - Chess: https://www.chess.com/
 
 ## See MultiModal Gamer play Super Mario 64 on YouTube (click below)
 
@@ -24,23 +24,29 @@
 
 ## Quick install
 
-Create venv
+1. Create a virtual environment:
+    ```bash
+    python3 -m venv env
+    ```
+2. Activate the virtual environment (Mac/Linux):
+    ```bash
+    source env/bin/activate
+    ```
+3. Install the required packages:
+    ```bash
+    pip install -r requirements.txt
+    ```
+4. Add your OpenAI API key:
+    ```bash
+    export OPENAI_API_KEY=yourkeyhere
+    ```
+
+
+## Running the Game
+
+To run a specific game, use the `-game` flag followed by the name of the game. For example, to play chess:
+
+```bash
+python main.py -game chess
 ```
-python3 -m venv env
-```
-Activate it (Mac)
-```
-source env/bin/activate
-```
-Install requirements
-```
-pip install -r requirements.txt
-```
-Add OpenAI Key
-```
-export OPENAI_API_KEY=yourkeyhere
-```
-Run it
-```
-python main.py
-```
+
