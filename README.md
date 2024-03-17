@@ -2,9 +2,7 @@
 ### A framework to enable multimodal models to play games on a computer.
 Using the same inputs and outputs as a human operator, the model plays a game!
 
-<div align="center">
-  <img src="https://github.com/joshbickett/multimodal-gamer/assets/42594239/f9fd7238-2d4c-46a0-94a4-484afb214375" width="300"  style="margin: 10px;"/>
-</div>
+<img src="https://github.com/joshbickett/multimodal-gamer/assets/42594239/f9fd7238-2d4c-46a0-94a4-484afb214375" width="300"  style="margin: 10px;"/>
 
 ## Key Features
 - **Compatibility**: Designed for various multimodal models and games
