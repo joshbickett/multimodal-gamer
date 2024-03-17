@@ -17,6 +17,7 @@
   - Super Mario 64: https://www.smbgames.be/super-mario-64.php
   - Poker: https://www.247freepoker.com/
   - Chess: https://www.chess.com/
+    - Requires Chess.com Keyboard: https://chromewebstore.google.com/detail/chesscom-keyboard/bghaancnengidpcefpkbbppinjmfnlhh
 
 ## Demo of Multimodal Gamer playing on Chess.com
 
