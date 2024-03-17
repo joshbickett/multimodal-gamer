@@ -1,6 +1,7 @@
 import os
 import base64
 import json
+from datetime import datetime
 from gamer.operating_system import OperatingSystem
 from openai import OpenAI
 from dotenv import load_dotenv
@@ -60,7 +61,7 @@ def get_sm64_operation(messages):
     )
 
     content = response.choices[0].message.content
-    if config.verbose:
+    if config.debug:
         print("[multimodal-gamer] preprocessed content", content)
 
     content = clean_json(content)
@@ -113,7 +114,7 @@ def get_poker_operation(messages):
     )
 
     content = response.choices[0].message.content
-    if config.verbose:
+    if config.debug:
         print("[multimodal-gamer] preprocessed content", content)
 
     content = clean_json(content)
@@ -149,7 +150,10 @@ def get_chess_operation(messages):
     if not os.path.exists(screenshots_dir):
         os.makedirs(screenshots_dir)
 
-    screenshot_filename = os.path.join(screenshots_dir, "screenshot.png")
+    # Use current date and time to create a unique filename
+    timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    screenshot_filename = os.path.join(screenshots_dir, f"screenshot_{timestamp}.png")
+
     # Call the function to capture the screen with the cursor
     operating_system.capture_screen(screenshot_filename)
 
@@ -180,16 +184,24 @@ def get_chess_operation(messages):
     )
 
     content = response.choices[0].message.content
-    if config.verbose:
+    if config.debug:
         print("[multimodal-gamer] preprocessed content", content)
 
     content = clean_json(content)
 
-    content_str = content
+    # content_str = content
 
     content_json = json.loads(content)
     action = content_json.get("action")
-    print("action", action)
+    # if action contains x in the string then replace with ""
+    action = action.replace("x", "")
+    # update content_json
+    content_json["action"] = action
+
+    content_str = json.dumps(content_json)
+
+    assistant_message = {"role": "assistant", "content": content_str}
+    messages.append(assistant_message)
 
     return content_json
 
