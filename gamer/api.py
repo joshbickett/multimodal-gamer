@@ -7,6 +7,7 @@ from openai import OpenAI
 from dotenv import load_dotenv
 from gamer.utils import get_text_element, get_text_coordinates
 from gamer.config import Config
+from anthropic import Anthropic
 import easyocr
 
 load_dotenv()
@@ -14,9 +15,14 @@ load_dotenv()
 api_key = os.environ.get("OPENAI_API_KEY")
 operating_system = OperatingSystem()
 
-client = OpenAI(
+openai_client = OpenAI(
     api_key=api_key,
 )
+antropic_client = Anthropic(
+    # This is the default and can be omitted
+    api_key=os.environ.get("ANTHROPIC_API_KEY"),
+)
+
 
 # Load configuration
 config = Config()
@@ -51,7 +57,7 @@ def get_sm64_operation(messages):
     }
     messages.append(vision_message)
 
-    response = client.chat.completions.create(
+    response = openai_client.chat.completions.create(
         model="gpt-4-vision-preview",
         messages=messages,
         presence_penalty=1,
@@ -104,7 +110,7 @@ def get_poker_operation(messages):
     }
     messages.append(vision_message)
 
-    response = client.chat.completions.create(
+    response = openai_client.chat.completions.create(
         model="gpt-4-vision-preview",
         messages=messages,
         presence_penalty=1,
@@ -174,7 +180,7 @@ def get_chess_operation(messages):
     }
     messages.append(vision_message)
 
-    response = client.chat.completions.create(
+    response = openai_client.chat.completions.create(
         model="gpt-4-vision-preview",
         messages=messages,
         presence_penalty=1,
