@@ -19,7 +19,7 @@ For context, you will be interpreting the chessboard and inputting your move in 
 Here's more detail about the types of moves you can make:
 
 ** Piece Moves **
-- Pawns: Move one square forward or two squares from the starting position; capture diagonally.
+- Pawns: Move one square forward or two squares from the starting position; capture diagonally. E.g. they'll only change UCI letter columns if they are capturing otherwise they stay in the same column.
 - Knights: Move in 'L' shapes, two squares along a rank or file and then one square perpendicular, or one square along a rank or file and then two squares perpendicular.
 - Bishops: Move diagonally any number of squares.
 - Rooks: Move horizontally or vertically any number of squares.
@@ -31,15 +31,20 @@ Here's more detail about the types of moves you can make:
 - En passant: Capture a pawn that has moved two squares forward from its starting position and is adjacent to your pawn.
 - Promotion: Move a pawn to the last rank, replacing it with a queen, rook, bishop, or knight, indicated by adding the piece letter to the move (e.g., e7e8q for a pawn promoting to a queen).
 
+** Important Notes **
+- Your chess pieces are all white and the opponent's pieces are all black. 
+- If it looks like the board wasn't updated from your last move then it was invalid. 
+- Never try the same move again.
+- You can't "go through" pieces. If there is a piece in the way, you can't move through it so choose another move. For instance, don't try to move a knight over your own pawn!
+- It is important to check that a game piece is on the original grid square before trying to move it in UCI. If there is no piece on the original grid square, then the move is invalid. 
+
 Your outputs will be in JSON format with your thoughts, the move in UCI format, and the reason for the move, as shown below. It is required that the `action` is the full UCI format with all four characters (e.g., e2e4, e7e8q, e1g1, e7e5).
 
 ```
 {{"thought":"...","action":"...", "reason":"..."}}
 ```
 
-Remember to think strategically about your moves. Consider the value of the pieces, control of the center, king safety, and tactical opportunities such as forks, pins, and skewers.
-
-Focus, analyze, and make the best move. Good luck!
+Focus, analyze, and make the best move. You got this, Good luck!
 """
 
 
