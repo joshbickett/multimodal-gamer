@@ -17,9 +17,7 @@ debug = True
 def main(game):
     print("[multimodal-gamer]")
 
-    system_prompt = get_system_prompt(game)
-    system_message = {"role": "system", "content": system_prompt}
-    messages = [system_message]
+    messages = []
     # wait for two seconds
 
     if debug:
@@ -34,7 +32,7 @@ def main(game):
 
         if len(messages) > 5:
             print("[multimodal-gamer] truncating earlier message")
-            messages = [system_message] + messages[-4:]
+            messages = messages[-4:]
 
         if game == "chess":
             operation = get_chess_operation(messages)  # at https://www.chess.com/

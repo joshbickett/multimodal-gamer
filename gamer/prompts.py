@@ -38,7 +38,7 @@ Here's more detail about the types of moves you can make:
 - You can't "go through" pieces. If there is a piece in the way, you can't move through it so choose another move. For instance, don't try to move a knight over your own pawn!
 - It is important to check that a game piece is on the original grid square before trying to move it in UCI. If there is no piece on the original grid square, then the move is invalid. 
 
-Your outputs will be in JSON format with your thoughts, the move in UCI format, and the reason for the move, as shown below. It is required that the `action` is the full UCI format with all four characters (e.g., e2e4, e7e8q, e1g1, e7e5).
+Your outputs will be in JSON format with your thoughts, the move in UCI format, and the reason for the move, as shown below. It is required that the `action` is the full UCI format with all four characters 
 
 ```
 {{"thought":"...","action":"...", "reason":"..."}}

@@ -9,6 +9,7 @@ from gamer.utils import get_text_element, get_text_coordinates
 from gamer.config import Config
 from anthropic import Anthropic
 import easyocr
+from gamer.prompts import get_system_prompt
 
 load_dotenv()
 
@@ -18,7 +19,7 @@ operating_system = OperatingSystem()
 openai_client = OpenAI(
     api_key=api_key,
 )
-antropic_client = Anthropic(
+anthropic_client = Anthropic(
     # This is the default and can be omitted
     api_key=os.environ.get("ANTHROPIC_API_KEY"),
 )
@@ -29,44 +30,7 @@ config = Config()
 
 
 def get_sm64_operation(messages):
-    if config.verbose:
-        print("[multimodal-gamer] get_sm64_operation")
-
-    screenshots_dir = "screenshots"
-    if not os.path.exists(screenshots_dir):
-        os.makedirs(screenshots_dir)
-
-    screenshot_filename = os.path.join(screenshots_dir, "screenshot.png")
-    # Call the function to capture the screen with the cursor
-    operating_system.capture_screen(screenshot_filename)
-
-    with open(screenshot_filename, "rb") as img_file:
-        img_base64 = base64.b64encode(img_file.read()).decode("utf-8")
-
-    user_prompt = "See the screenshot of the game provide your next action. Only respond with the next action in valid json."
-
-    vision_message = {
-        "role": "user",
-        "content": [
-            {"type": "text", "text": user_prompt},
-            {
-                "type": "image_url",
-                "image_url": {"url": f"data:image/jpeg;base64,{img_base64}"},
-            },
-        ],
-    }
-    messages.append(vision_message)
-
-    response = openai_client.chat.completions.create(
-        model="gpt-4-vision-preview",
-        messages=messages,
-        presence_penalty=1,
-        frequency_penalty=1,
-        temperature=0.7,
-        max_tokens=3000,
-    )
-
-    content = response.choices[0].message.content
+    content, screenshot_filename = call_api("mario", "openai", messages)
     if config.debug:
         print("[multimodal-gamer] preprocessed content", content)
 
@@ -82,48 +46,7 @@ def get_sm64_operation(messages):
 
 
 def get_poker_operation(messages):
-    if config.verbose:
-        print("[multimodal-gamer] get_poker_operation")
-
-    screenshots_dir = "screenshots"
-    if not os.path.exists(screenshots_dir):
-        os.makedirs(screenshots_dir)
-
-    screenshot_filename = os.path.join(screenshots_dir, "screenshot.png")
-    # Call the function to capture the screen with the cursor
-    operating_system.capture_screen(screenshot_filename)
-
-    with open(screenshot_filename, "rb") as img_file:
-        img_base64 = base64.b64encode(img_file.read()).decode("utf-8")
-
-    user_prompt = "See the screenshot of the game provide your next action. Only respond with the next action in valid json."
-
-    vision_message = {
-        "role": "user",
-        "content": [
-            {"type": "text", "text": user_prompt},
-            {
-                "type": "image_url",
-                "image_url": {"url": f"data:image/jpeg;base64,{img_base64}"},
-            },
-        ],
-    }
-    messages.append(vision_message)
-
-    response = openai_client.chat.completions.create(
-        model="gpt-4-vision-preview",
-        messages=messages,
-        presence_penalty=1,
-        frequency_penalty=1,
-        temperature=0.7,
-        max_tokens=3000,
-    )
-
-    content = response.choices[0].message.content
-    if config.debug:
-        print("[multimodal-gamer] preprocessed content", content)
-
-    content = clean_json(content)
+    content, screenshot_filename = call_api("poker", "openai", messages)
 
     content_str = content
 
@@ -149,8 +72,28 @@ def get_poker_operation(messages):
 
 
 def get_chess_operation(messages):
+
+    content, screenshot_filename = call_api("chess", "openai", messages)
+    assistant_message = {"role": "assistant", "content": content}
+
+    content = json.loads(content)
+
+    messages.append(assistant_message)
+    return content
+
+
+# build this out for claude and gpt-4-vision-preview
+def call_api(
+    game,
+    provider,
+    messages,
+):
     if config.verbose:
-        print("[multimodal-gamer] get_chess_operation")
+        print("[call_api]")
+        print("[call_api] len(messages)", len(messages))
+        for i, message in enumerate(messages):
+            if message["role"] != "user":
+                print(f"message[{i}] => ", message["role"])
 
     screenshots_dir = "screenshots"
     if not os.path.exists(screenshots_dir):
@@ -168,48 +111,73 @@ def get_chess_operation(messages):
 
     user_prompt = "See the screenshot of the game provide your next action. Only respond with the next action in valid json."
 
-    vision_message = {
-        "role": "user",
-        "content": [
-            {"type": "text", "text": user_prompt},
-            {
-                "type": "image_url",
-                "image_url": {"url": f"data:image/jpeg;base64,{img_base64}"},
-            },
-        ],
-    }
-    messages.append(vision_message)
+    system_prompt = get_system_prompt(game)
+    if provider == "openai":
 
-    response = openai_client.chat.completions.create(
-        model="gpt-4-vision-preview",
-        messages=messages,
-        presence_penalty=1,
-        frequency_penalty=1,
-        temperature=0.7,
-        max_tokens=3000,
-    )
+        system_message = {"role": "system", "content": system_prompt}
+        # append the system message to the first index of `messages`
+        messages.insert(0, system_message)
+        vision_message = {
+            "role": "user",
+            "content": [
+                {"type": "text", "text": user_prompt},
+                {
+                    "type": "image_url",
+                    "image_url": {"url": f"data:image/jpeg;base64,{img_base64}"},
+                },
+            ],
+        }
+        messages.append(vision_message)
+        # now remove system prompt
 
-    content = response.choices[0].message.content
-    if config.debug:
-        print("[multimodal-gamer] preprocessed content", content)
+        response = openai_client.chat.completions.create(
+            model="gpt-4-vision-preview",
+            messages=messages,
+            presence_penalty=1,
+            frequency_penalty=1,
+            temperature=0.7,
+            max_tokens=3000,
+        )
+        messages.pop(0)  # remove system prompt again
 
-    content = clean_json(content)
+        content = response.choices[0].message.content
+        if config.debug:
+            print("[multimodal-gamer] preprocessed content", content)
 
-    # content_str = content
+        content = clean_json(content)
+        print("type(content", type(content))
 
-    content_json = json.loads(content)
-    action = content_json.get("action")
-    # if action contains x in the string then replace with ""
-    action = action.replace("x", "")
-    # update content_json
-    content_json["action"] = action
+        return content, screenshot_filename
+    elif provider == "anthropic":
+        vision_message = {
+            "role": "user",
+            "content": [
+                {
+                    "type": "image",
+                    "source": {
+                        "type": "base64",
+                        "media_type": "image/png",  # TODO: double check this
+                        "data": img_base64,
+                    },
+                },
+                {"type": "text", "text": user_prompt},
+            ],
+        }
+        messages.append(vision_message)
 
-    content_str = json.dumps(content_json)
+        message = anthropic_client.messages.create(
+            model="claude-3-opus-20240229",
+            max_tokens=1024,
+            system=system_prompt,
+            messages=messages,
+        )
+        print("anthropic message", message.content)
 
-    assistant_message = {"role": "assistant", "content": content_str}
-    messages.append(assistant_message)
+        content = clean_json(message.content)
 
-    return content_json
+        return content, screenshot_filename
+    else:
+        Exception("Uh, we don't know that provider :(")
 
 
 def process_ocr(messages, content, content_str, screenshot_filename):
