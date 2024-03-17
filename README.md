@@ -18,9 +18,9 @@
   - Poker: https://www.247freepoker.com/
   - Chess: https://www.chess.com/
 
-## See MultiModal Gamer play Super Mario 64 on YouTube (click below)
+## Demo of Multimodal Gamer playing on Chess.com
 
-[![YouTube video player](https://img.youtube.com/vi/9Znt4dMAB7U/0.jpg)](https://www.youtube.com/watch?v=9Znt4dMAB7U)
+https://github.com/joshbickett/multimodal-gamer/assets/42594239/2d557fc9-3d93-4bc7-9636-376861418298
 
 ## Quick install
 
