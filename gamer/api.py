@@ -173,7 +173,7 @@ def call_api(
         )
         print("anthropic message", message.content)
 
-        content = clean_json(message.content)
+        content = clean_json(message.content[0].text)
 
         return content, screenshot_filename
     else:
