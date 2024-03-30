@@ -3,7 +3,7 @@ def get_system_prompt(game):
     This is a system prompt for the game
     """
     if game == "chess":
-        prompt = CHESS_SYSTEM_PROMPT_IMPROVED
+        prompt = CHESS_SYSTEM_PROMPT_UCI
     elif game == "poker":
         prompt = POKER_SYSTEM_PROMPT
     else:
@@ -18,7 +18,7 @@ What's the next best move for the white team? Please the next move in Algebraic 
 ```
 {{"analysis":"...","uci":"...","algebraic-notation":"...", "reason":"..."}}
 ```
-"""
+"""  # This prompt may not actually be better claude-3 struggles with it
 
 CHESS_SYSTEM_PROMPT_UCI = """
 You are a master of Chess. Your objective is to play the strongest move on each turn, taking into account the position of the pieces on the board, the control of key squares, the safety of your king, and the threats to the opponent's king.
