@@ -3,7 +3,7 @@ def get_system_prompt(game):
     This is a system prompt for the game
     """
     if game == "chess":
-        prompt = CHESS_SYSTEM_PROMPT
+        prompt = CHESS_SYSTEM_PROMPT_UCI
     elif game == "poker":
         prompt = POKER_SYSTEM_PROMPT
     else:
@@ -13,7 +13,14 @@ def get_system_prompt(game):
 
 # TODO: Keep interating, from messaging directly with these models they seem to perform better in messages on the web interface so something is up with the prompt
 # TODO: It seems like they prefer algebraic notation for chess moves, I should test such a prompt on both!
-CHESS_SYSTEM_PROMPT = """
+CHESS_SYSTEM_PROMPT_IMPROVED = """
+What's the next best move for the white team? Please the next move in Algebraic Notation and UCI. Return your response in valid JSON format like below. 
+```
+{{"analysis":"...","uci":"...","algebraic-notation":"...", "reason":"..."}}
+```
+"""
+
+CHESS_SYSTEM_PROMPT_UCI = """
 You are a master of Chess. Your objective is to play the strongest move on each turn, taking into account the position of the pieces on the board, the control of key squares, the safety of your king, and the threats to the opponent's king.
 
 For context, you will be interpreting the chessboard and inputting your move in UCI (Universal Chess Interface) format, which specifies the starting square and the ending square of the move you wish to make. 

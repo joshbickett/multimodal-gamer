@@ -274,3 +274,9 @@ def clean_json(content):
     content = "\n".join(line.strip() for line in content.splitlines())
 
     return content
+
+
+def reflection(model, messages):
+    # TODO: implement reflection that checks the action for correctness
+    # Source: https://www.youtube.com/watch?v=sal78ACtGTc&t=308s
+    return
