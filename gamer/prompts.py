@@ -3,7 +3,7 @@ def get_system_prompt(game):
     This is a system prompt for the game
     """
     if game == "chess":
-        prompt = CHESS_SYSTEM_PROMPT_UCI
+        prompt = CHESS_SYSTEM_PROMPT_IMPROVED
     elif game == "poker":
         prompt = POKER_SYSTEM_PROMPT
     else:

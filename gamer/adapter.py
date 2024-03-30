@@ -48,7 +48,8 @@ class Adapter:
 
     def chess(self, operation):
         # print("[Adapter][chess] operation:", operation)
-        action = operation.get("action")
+        # action = operation.get("action")
+        action = operation.get("uci")
 
         operation_highlight_text = {"operation": "press", "keys": ["command", "a"]}
         operation_delete_old_text = {"operation": "press", "keys": ["backspace"]}
